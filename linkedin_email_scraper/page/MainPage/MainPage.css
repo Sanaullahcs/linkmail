@@ -1,0 +1,244 @@
+/* src/MainPage.css */
+
+/* Ensure the body takes up the full viewport height */
+body,
+html {
+  margin: 0;
+  height: 100%;
+}
+
+/* Container for the entire app */
+.App {
+  text-align: center;
+  padding: 40px;
+  font-family: 'Arial', sans-serif; /* Using a simple font; you can replace with Google Fonts if needed */
+  background-color: #ffffff; /* White background */
+  color: #000000; /* Black text color */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Flex container to center the app */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the start to stack content from the top */
+  background-color: #f0f0f0; /* Light gray background for the body */
+}
+
+/* Flex container for form and table side by side */
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px; /* Space between the two boxes */
+  width: 100%;
+  /* flex-wrap: wrap; Allow wrapping on smaller screens */
+}
+
+/* Form container */
+.form-container {
+  background-color: #ffffff; /* White background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+/* Form Labels */
+.form-container label {
+  display: block;
+  text-align: left;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #555555;
+}
+
+/* Input field styles */
+.form-container input {
+  padding: 12px;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #cccccc; /* Light gray border */
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Form Buttons Container */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Search and Filter button styles */
+.search-button,
+.filter-button {
+  flex: 1;
+  padding: 12px;
+  background-color: #4fa94d; /* Green background */
+  color: #ffffff; /* White text */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover,
+.filter-button:hover {
+  background-color: #3e8e41; /* Darker green on hover */
+}
+
+/* Table container */
+.table-container {
+  background-color: #ffffff; /* White background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+  box-sizing: border-box;
+}
+
+/* Heading style */
+h1 {
+  color: #000000; /* Black color for heading */
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+/* Subheading style */
+h2 {
+  color: #333333; /* Dark gray color for subheading */
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Button styles */
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Search and Filter buttons specific styles */
+.search-button {
+  background-color: #4fa94d; /* Green background */
+  color: #ffffff; /* White text */
+}
+
+.search-button:hover {
+  background-color: #3e8e41; /* Darker green on hover */
+}
+
+.filter-button {
+  background-color: #4fa94d; /* Green background */
+  color: #ffffff; /* White text */
+}
+
+.filter-button:hover {
+  background-color: #3e8e41; /* Darker green on hover */
+}
+
+/* Table wrapper to allow scrolling */
+.table-wrapper {
+  max-height: 400px; /* Adjust height as necessary */
+  overflow-y: auto;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+/* Table header and data cell styling */
+th,
+td {
+  padding: 15px;
+  border: 1px solid #dddddd; /* Light gray border */
+  text-align: left;
+}
+
+/* Table header specific styling */
+th {
+  background-color: #f2f2f2; /* Light gray header */
+  color: #000000; /* Black text */
+}
+
+/* Table data styling */
+td {
+  color: #000000; /* Black text */
+}
+
+/* Link styling inside the table */
+a {
+  color: #007bff; /* Blue links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Download button styling */
+.table_button {
+  padding: 12px 30px;
+  background-color: #4fa94d; /* Green background */
+  color: #ffffff; /* White text */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+}
+
+.table_button:hover {
+  background-color: #3e8e41; /* Darker green on hover */
+}
+
+/* Buttons container styling */
+.buttons-container {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  align-items: center;
+  margin-top: 30px; /* Space above the buttons */
+  gap: 20px; /* Space between buttons */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+/* Action buttons specific styles */
+.action-button {
+  padding: 12px 20px;
+  background-color: #007bff; /* Blue background */
+  color: #ffffff; /* White text */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-button:hover:not(:disabled) {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.action-button:disabled {
+  background-color: #a5d6a7; /* Light green when disabled */
+  cursor: not-allowed;
+}
