@@ -1,244 +1,371 @@
-/* src/MainPage.css */
-
-/* Ensure the body takes up the full viewport height */
-body,
-html {
-  margin: 0;
-  height: 100%;
+* {
+  box-sizing: border-box;
 }
 
-/* Container for the entire app */
-.App {
-  text-align: center;
-  padding: 40px;
-  font-family: 'Arial', sans-serif; /* Using a simple font; you can replace with Google Fonts if needed */
-  background-color: #ffffff; /* White background */
-  color: #000000; /* Black text color */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
-  margin: 20px auto;
-}
-
-/* Flex container to center the app */
 body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f7fa;
+}
+
+.container {
   display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Align items to the start to stack content from the top */
-  background-color: #f0f0f0; /* Light gray background for the body */
-}
-
-/* Flex container for form and table side by side */
-.content-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px; /* Space between the two boxes */
+  flex-direction: column;
+  height: 100vh;
   width: 100%;
-  /* flex-wrap: wrap; Allow wrapping on smaller screens */
 }
 
-/* Form container */
-.form-container {
-  background-color: #ffffff; /* White background */
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+@media(min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+}
+
+.sidebar {
   width: 100%;
-  max-width: 500px;
-  box-sizing: border-box;
+  background-color: #f5f7fa;
+  padding: 40px 20px 20px 20px;
+  border-bottom: 1px solid #eaeaea;
+  background: transparent;
+
 }
 
-/* Form Labels */
-.form-container label {
+@media(min-width: 767px) and (max-width: 1100px) {
+  .sidebar {
+    width: 30%;
+    border-bottom: none;
+    border-right: 1px solid #eaeaea;
+    padding: 40px 20px 20px 40px;
+
+  }
+}
+
+@media(min-width: 1100px) {
+  .sidebar {
+    width: 25%;
+    border-bottom: none;
+    border-right: 1px solid #eaeaea;
+    padding: 40px 20px 20px 40px;
+  }
+}
+
+.divider {
+  border-bottom: 1px solid #EAEDF4;
+  margin-top: 12px;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+.form label {
   display: block;
+  margin-top: 40px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
   text-align: left;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #555555;
+  color: #333333;
+
 }
 
-/* Input field styles */
-.form-container input {
-  padding: 12px;
+.form input,
+.form select {
   width: 100%;
-  margin-top: 5px;
-  margin-bottom: 20px;
-  border: 1px solid #cccccc; /* Light gray border */
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
-  background-color: #ffffff;
-  color: #000000;
-}
-
-/* Form Buttons Container */
-.form-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  padding: 10px;
   margin-top: 10px;
-}
-
-/* Search and Filter button styles */
-.search-button,
-.filter-button {
-  flex: 1;
-  padding: 12px;
-  background-color: #4fa94d; /* Green background */
-  color: #ffffff; /* White text */
-  border: none;
+  border: 1px solid #eaeaea;
   border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.search-button:hover,
-.filter-button:hover {
-  background-color: #3e8e41; /* Darker green on hover */
-}
-
-/* Table container */
-.table-container {
-  background-color: #ffffff; /* White background */
-  padding: 30px;
+  box-shadow: 0px 2px 6px 0px #DCE1EC;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 700px;
-  box-sizing: border-box;
-}
-
-/* Heading style */
-h1 {
-  color: #000000; /* Black color for heading */
-  font-size: 32px;
-  margin-bottom: 30px;
-}
-
-/* Subheading style */
-h2 {
-  color: #333333; /* Dark gray color for subheading */
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-/* Button styles */
-button {
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* Search and Filter buttons specific styles */
-.search-button {
-  background-color: #4fa94d; /* Green background */
-  color: #ffffff; /* White text */
-}
-
-.search-button:hover {
-  background-color: #3e8e41; /* Darker green on hover */
-}
-
-.filter-button {
-  background-color: #4fa94d; /* Green background */
-  color: #ffffff; /* White text */
-}
-
-.filter-button:hover {
-  background-color: #3e8e41; /* Darker green on hover */
-}
-
-/* Table wrapper to allow scrolling */
-.table-wrapper {
-  max-height: 400px; /* Adjust height as necessary */
-  overflow-y: auto;
-}
-
-/* Table styling */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 16px;
-}
-
-/* Table header and data cell styling */
-th,
-td {
-  padding: 15px;
-  border: 1px solid #dddddd; /* Light gray border */
+  height: 50px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
   text-align: left;
+  color: #999999;
+
+
+
 }
 
-/* Table header specific styling */
-th {
-  background-color: #f2f2f2; /* Light gray header */
-  color: #000000; /* Black text */
+
+.form input::placeholder,
+.form select {
+  color: #b0b0b0;
 }
 
-/* Table data styling */
-td {
-  color: #000000; /* Black text */
+.checkbox {
+  margin-top: 20px;
 }
 
-/* Link styling inside the table */
-a {
-  color: #007bff; /* Blue links */
-  text-decoration: none;
+.checkbox input {
+  margin-right: 10px;
+
 }
 
-a:hover {
-  text-decoration: underline;
+#emailFilter {
+  width: 20px;
+  height: 20px;
 }
 
-/* Download button styling */
-.table_button {
-  padding: 12px 30px;
-  background-color: #4fa94d; /* Green background */
-  color: #ffffff; /* White text */
+.search-button {
+  display: block;
+  width: 100%;
+  box-shadow: 0px 2px 6px 0px #DCE1EC;
+  background-color: #F8760B;
+  color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 10px;
+  margin-top: 40px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 15px;
+  height: 50px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+
+
 }
 
-.table_button:hover {
-  background-color: #3e8e41; /* Darker green on hover */
+.search-button:active,
+.search-button:focus {
+  border: 0px !important;
+  outline: none !important;
+
 }
 
-/* Buttons container styling */
+footer {
+  color: #a1a1a1;
+  font-size: 12px;
+  margin-top: 40px;
+}
+
+@media(min-width: 768px) {
+  footer {
+    position: absolute;
+    bottom: 20px;
+    width: calc(25% - 40px);
+    left: 40px;
+  }
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 30px 20px;
+}
+
+@media(min-width: 768px) {
+  .main-content {
+    padding: 30px;
+  }
+}
+
+.main-content h2 {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 23.44px;
+  text-align: left;
+  color: #000000;
+  margin-top: 8px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+ 
+ 
+
+}
+.table-wrapper{
+  width: 100%;
+  margin-top: 50px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 20px 40px 0px #D0D6E3;
+  padding: 20px;
+}
+
+table th,
+table td {
+  padding: 20px;
+  text-align: left;
+  border-bottom: 1px solid #EAEDF4;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.41px;
+  text-align: left;
+  color: #232231;
+}
+
+table td {
+  font-weight: 400;
+  color: #828190;
+  border-bottom: 0px;
+
+}
+
+
+
+.empty-state {
+  text-align: center;
+  padding: 100px 0;
+  font-size: 18px;
+  color: #a1a1a1;
+}
+
+.empty-icon {
+  font-size: 48px;
+  color: #ccc;
+  display: block;
+  margin: 20px 0;
+}
+
+#empty-icon {
+  width: 48px;
+  height: 48px;
+  background: url('https://via.placeholder.com/48') no-repeat center center;
+  display: inline-block;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+/* Custom Checkbox Styling */
+.checkbox-container input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* When the checkbox is checked, change background to black and show the white checkmark */
+.checkbox-container input[type="checkbox"]:checked {
+  background-color: black;
+}
+
+.checkbox-container input[type="checkbox"]:checked::before {
+  content: '✔';
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  color: white;
+
+}
+
+.checkbox-label {
+  margin-top: 10px !important;
+  margin-left: 5px;
+}
+
 .buttons-container {
   display: flex;
-  justify-content: center; /* Center the buttons horizontally */
-  align-items: center;
-  margin-top: 30px; /* Space above the buttons */
-  gap: 20px; /* Space between buttons */
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
-/* Action buttons specific styles */
 .action-button {
-  padding: 12px 20px;
-  background-color: #007bff; /* Blue background */
-  color: #ffffff; /* White text */
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  color: #FFFFFF;
+  height: 40px;
+  box-shadow: 0px 2px 6px 0px #DCE1EC;
+  border-radius: 10px;
+  margin-top: 20px;
+  border: 0px;
+
+
+
 }
 
-.action-button:hover:not(:disabled) {
-  background-color: #0056b3; /* Darker blue on hover */
+.refresh-btn {
+  margin-left: auto;
+  background: #EE3158;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+
 }
 
-.action-button:disabled {
-  background-color: #a5d6a7; /* Light green when disabled */
-  cursor: not-allowed;
+.email-history-btn {
+  background: #F59B4D;
+  width: 123px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+ margin-left: 12px;
+
 }
+
+.send-email-btn {
+  background: #00D0FF;
+  width: 110px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+ margin-left: 12px;
+}
+.pagination {
+  display: flex;
+  margin-left: auto;
+  margin-top: 12px;
+
+}
+
+.pagination a {
+  color: black;
+  float: left;
+ width: 28px;
+ height: 28px;
+  text-decoration: none;
+  border: 1px solid #EAEDF4;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 6px;
+}
+.pagination a:active,
+.pagination a:first-child {
+ background-color: #333333;
+ color: white;
+ 
+}
+.pagination a:first-child {
+ 
+  margin-left: auto;
+  
+ }
+ .table-data-header{
+  display: flex;
+ }
+ .download-excel-btn{
+  margin-left: auto;
+  background-color: #F8760B;
+  margin-top: 0px;
+ }
+ .view-profile{
+  border: 1px solid #EAEDF4;
+  border-radius: 4px;
+  color: #999999;
+  padding: 8px;
+ }

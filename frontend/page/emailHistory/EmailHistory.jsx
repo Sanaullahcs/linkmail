@@ -1,6 +1,8 @@
 // src/pages/EmailHistory.jsx
 import { useEffect, useState } from 'react';
 import './EmailHistory.css';
+import '../MainPage/MainPage.css';
+
 import { useNavigate } from 'react-router-dom';
 import { Oval } from 'react-loader-spinner';
 
@@ -52,10 +54,13 @@ function EmailHistory() {
   return (
     <div className="email-history">
       <div className="email-history-header">
-        <h1>Email History</h1>
-        <button onClick={handleBack} className="back-button">
-          Back
+       <div className="table-data-header"> 
+       <button onClick={handleBack} className="back-button action-button">
+          <img src='./arrowleft.png' />
         </button>
+       <h1 className='header-heading'>Email History</h1>
+        
+        </div>
       </div>
       {loading ? (
         <div className="loading-spinner">
@@ -64,6 +69,7 @@ function EmailHistory() {
       ) : emails.length === 0 ? (
         <p>No emails have been sent yet.</p>
       ) : (
+        <>
         <div className="table-wrapper">
           <table>
             <thead>
@@ -88,31 +94,45 @@ function EmailHistory() {
                     >
                       View Emails ({email.recipients.length})
                     </button>
+
+                    {isModalOpen && (
+        <div className="dropdown">
+          <div onClick={(e) => e.stopPropagation()} className="dropdown-content">
+            <ul>
+              {selectedRecipients.map((recipient, index) => (
+                <li key={index}>{recipient}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
                   </td>
                   <td>{new Date(email.sentAt).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <div className="divider"></div>
+              <div class="pagination">
+            {/* <a href="#">&laquo;</a> */}
+            <a href="#">1</a>
+            <a href="#">2</a>
+            
+            {/* <a href="#">&raquo;</a> */}
+          </div>
         </div>
+        <div className="buttons-container">
+            <button
+              className="action-button email-history-btn d-excel-btn"
+            >
+              Download as Excel
+            </button>
+          </div>
+          </>
       )}
 
       {/* Modal for viewing recipients */}
-      {isModalOpen && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>Recipients</h2>
-            <ul>
-              {selectedRecipients.map((recipient, index) => (
-                <li key={index}>{recipient}</li>
-              ))}
-            </ul>
-            <button onClick={closeModal} className="close-modal-button">
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+    
     </div>
   );
 }
