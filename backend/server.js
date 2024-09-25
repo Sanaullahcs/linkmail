@@ -25,6 +25,9 @@ app.use('/', sendEmailRoute);
 const getEmailHistoryRoute = require('./routes/getEmailHistory');
 app.use('/', getEmailHistoryRoute);
 
+// Fetch states route
+const getStatesRoute = require('./routes/fetchStates');
+app.use('/', getStatesRoute);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT}`);
