@@ -29,6 +29,10 @@ app.use('/', getEmailHistoryRoute);
 const getStatesRoute = require('./routes/fetchStates');
 app.use('/', getStatesRoute);
 
+// Fetch the Linkedin User Posts
+const getPostsRoute = require('./routes/fetchPosts');
+app.use('/', getPostsRoute);
+
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT}`);
 });

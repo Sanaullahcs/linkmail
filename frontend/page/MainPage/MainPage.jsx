@@ -1,5 +1,5 @@
 // src/MainPage.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./MainPage.css";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
@@ -10,6 +10,7 @@ export default function MainPage() {
   const [role, setRole] = useState("");
   const [country, setCountry] = useState(""); // New state for Country
   const [stateRegion, setStateRegion] = useState(""); // New state for State
+  const [states, setStates] = useState([]);
   const [emailExtension, setEmailExtension] = useState("");
   const [profiles, setProfiles] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
@@ -46,7 +47,33 @@ export default function MainPage() {
       setLoading(false); // Stop loading
     }
   };
+  // Function to fetch states based on the country code when state dropdown is clicked
+  const handleStateClick = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_URL}/getStates`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ country: country }), // Send the country code in uppercase
+      });
 
+      if (!response.ok) {
+        throw new Error("Failed to fetch states");
+      }
+
+      const data = await response.json();
+      setStates(data.states || []); // Update states if data exists
+    } catch (error) {
+      console.error("Error fetching states:", error);
+      alert("An error occurred while fetching states.");
+    }
+  };
+
+   // Trigger fetchStates when the country changes
+   useEffect(() => {
+   
+  }, [country]);
   // Handle refreshing the form and profiles
   const handleRefresh = () => {
     setRole("");
@@ -126,14 +153,16 @@ export default function MainPage() {
               id="state"
               value={stateRegion}
               onChange={(e) => setStateRegion(e.target.value)}
+              onClick={handleStateClick}
               required
             >
               <option value="">Select state</option>
-              <option value="California">California</option>
-              <option value="Lahore">Lahore</option>
-              <option value="USA">USA</option>
-              <option value="Texas">Texas</option>
-              <option value="New York">New York</option>
+              {/* Dynamically populate dropdown with fetched states */}
+              {states.map((state) => (
+                <option key={state.isoCode} value={state.name}>
+                  {state.name}
+                </option>
+              ))}
             </select>
             {showFilter && (
               <label>
@@ -222,7 +251,7 @@ export default function MainPage() {
             {profiles.length > 0 && !loading && (
               <>
               <div className="divider"></div>
-              <div class="pagination">
+              <div className="pagination">
             {/* <a href="#">&laquo;</a> */}
             <a href="#">1</a>
             <a href="#">2</a>
