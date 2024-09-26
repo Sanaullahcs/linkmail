@@ -1,4 +1,3 @@
-// src/pages/EmailHistory.jsx
 import { useEffect, useState } from 'react';
 import './EmailHistory.css';
 import '../MainPage/MainPage.css';
@@ -9,8 +8,7 @@ import { Oval } from 'react-loader-spinner';
 function EmailHistory() {
   const [emails, setEmails] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRecipients, setSelectedRecipients] = useState([]);
+  const [openEmailId, setOpenEmailId] = useState(null); // Track which email's modal is open
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,27 +37,19 @@ function EmailHistory() {
     navigate(-1); // Navigates to the previous page
   };
 
-  // Handle opening the modal with recipients
-  const openModal = (recipients) => {
-    setSelectedRecipients(recipients);
-    setIsModalOpen(true);
-  };
-
-  // Handle closing the modal
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedRecipients([]);
+  // Handle opening the modal with recipients for a specific email
+  const openModal = (emailId) => {
+    setOpenEmailId(emailId === openEmailId ? null : emailId); // Toggle modal for the clicked email
   };
 
   return (
     <div className="email-history">
       <div className="email-history-header">
-       <div className="table-data-header"> 
-       <button onClick={handleBack} className="back-button action-button">
-          <img src='./arrowleft.png' />
-        </button>
-       <h1 className='header-heading'>Email History</h1>
-        
+        <div className="table-data-header"> 
+          <button onClick={handleBack} className="back-button action-button">
+            <img src='./arrowleft.png' alt="Back" />
+          </button>
+          <h1 className='header-heading'>Email History</h1>
         </div>
       </div>
       {loading ? (
@@ -70,69 +60,61 @@ function EmailHistory() {
         <p>No emails have been sent yet.</p>
       ) : (
         <>
-        <div className="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>Sender Email</th>
-                <th>Subject</th>
-                <th>Body</th>
-                <th>Recipients</th>
-                <th>Sent At</th>
-              </tr>
-            </thead>
-            <tbody>
-              {emails.map((email) => (
-                <tr key={email._id}>
-                  <td>{email.senderEmail}</td>
-                  <td>{email.subject}</td>
-                  <td>{email.body}</td>
-                  <td>
-                    <button
-                      className="view-emails-button"
-                      onClick={() => openModal(email.recipients)}
-                    >
-                      View Emails ({email.recipients.length})
-                    </button>
-
-                    {isModalOpen && (
-        <div className="dropdown">
-          <div onClick={(e) => e.stopPropagation()} className="dropdown-content">
-            <ul>
-              {selectedRecipients.map((recipient, index) => (
-                <li key={index}>{recipient}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
-                  </td>
-                  <td>{new Date(email.sentAt).toLocaleString()}</td>
+          <div className="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sender Email</th>
+                  <th>Subject</th>
+                  <th>Body</th>
+                  <th>Recipients</th>
+                  <th>Sent At</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="divider"></div>
-              <div class="pagination">
-            {/* <a href="#">&laquo;</a> */}
-            <a href="#">1</a>
-            <a href="#">2</a>
-            
-            {/* <a href="#">&raquo;</a> */}
+              </thead>
+              <tbody>
+                {emails.map((email) => (
+                  <tr key={email._id}>
+                    <td>{email.senderEmail}</td>
+                    <td>{email.subject}</td>
+                    <td>{email.body}</td>
+                    <td>
+                      <button
+                        className="view-profile view-email-btn"
+                        onClick={() => openModal(email._id)}
+                      >
+                        View Emails ({email.recipients.length})
+                      </button>
+
+                      {openEmailId === email._id && (
+                        <div className="dropdown">
+                          <div onClick={(e) => e.stopPropagation()} className="dropdown-content">
+                            <ul>
+                              {email.recipients.map((recipient, index) => (
+                                <li key={index}>{recipient}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      )}
+                    </td>
+                    <td>{new Date(email.sentAt).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="divider"></div>
+            <div className="pagination">
+              <a href="#">1</a>
+              <a href="#">2</a>
+            </div>
           </div>
-        </div>
-        <div className="buttons-container">
-            <button
-              className="action-button email-history-btn d-excel-btn"
-            >
+          <div className="buttons-container">
+            <button className="action-button email-history-btn d-excel-btn">
               Download as Excel
             </button>
           </div>
-          </>
+        </>
       )}
-
-      {/* Modal for viewing recipients */}
-    
     </div>
   );
 }

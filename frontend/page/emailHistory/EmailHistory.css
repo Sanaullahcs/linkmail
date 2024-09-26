@@ -52,3 +52,8 @@ justify-content: center;
 .dropdown-content li:hover {
   background-color: #f1f1f1; /* Change background on hover */
 }
+.view-email-btn{
+  border: 1px solid #EAEDF4 !important;
+  color: #999999 !important;
+  background-color: transparent;
+}

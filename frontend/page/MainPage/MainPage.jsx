@@ -165,7 +165,7 @@ export default function MainPage() {
         </div>
         <div className="main-content">
          <div className="table-data-header">
-         <h2>Extracted Profiles</h2>
+         <h2>linkedMail</h2>
           {profiles.length > 0 && !loading && (
             <button onClick={downloadExcel} className="action-button download-excel-btn">
               Download as Excel
