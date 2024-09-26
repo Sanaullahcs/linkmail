@@ -190,7 +190,6 @@ export default function MainPage() {
               Search
             </button>
           </form>
-          <footer>Copyright © 2024 TGI. All Rights Reserved.</footer>
         </div>
         <div className="main-content">
          <div className="table-data-header">
@@ -287,7 +286,10 @@ export default function MainPage() {
           </div>
           )}
         </div>
+
       </div>
+      <footer>Copyright © 2024 TGI. All Rights Reserved.</footer>
+
     </>
   );
 }

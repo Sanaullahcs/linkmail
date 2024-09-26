@@ -12,8 +12,9 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
+  height: auto;
 }
 
 @media(min-width: 768px) {
@@ -126,6 +127,7 @@ body {
   font-family: Roboto;
   font-size: 14px;
   font-weight: 400;
+ 
 
 
 }
@@ -140,15 +142,17 @@ body {
 footer {
   color: #a1a1a1;
   font-size: 12px;
-  margin-top: 40px;
+ 
 }
 
 @media(min-width: 768px) {
   footer {
-    position: absolute;
-    bottom: 20px;
+    /* position: absolute; */
+    /* bottom: 20px; */
     width: calc(25% - 40px);
-    left: 40px;
+    margin-left: 40px;
+    margin-top: -30px;
+    margin-bottom: 12px;
   }
 }
 
@@ -176,7 +180,7 @@ footer {
 table {
   border-collapse: collapse;
   width: 100%;
- 
+
  
 
 }
@@ -187,8 +191,17 @@ table {
   border-radius: 10px;
   box-shadow: 0px 20px 40px 0px #D0D6E3;
   padding: 20px;
+  overflow-x: scroll;
+}
+/* Hide scrollbar for webkit browsers */
+.table-wrapper::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar */
 }
 
+/* Optional: Add padding or margin for better user experience */
+.table-wrapper {
+  padding-right: 20px; /* Space for content without the scrollbar */
+}
 table th,
 table td {
   padding: 20px;
@@ -271,6 +284,7 @@ table td {
 
 .buttons-container {
   display: flex;
+  margin-bottom: 12px;
 }
 
 .action-button {
@@ -369,3 +383,8 @@ table td {
   color: #999999;
   padding: 8px;
  }
+ @media(max-width: 768px) {
+ footer {
+  margin-left: 30px;
+  }
+}
