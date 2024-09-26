@@ -15,7 +15,7 @@ function EmailHistory() {
     // Fetch email history from the backend
     const fetchEmailHistory = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_URL}/emailHistory`);
+        const response = await fetch(`http://localhost:5000/emailHistory`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

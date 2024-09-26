@@ -14,11 +14,11 @@ function EmailPage({ profiles }) {
       return;
     }
 
-    // const emailAddresses = profiles.map(profile => profile.email);
+    const emailAddresses = profiles.map(profile => profile.email);
 
-    const emailAddresses = ['tgimajid55@gmail.com']
+    // const emailAddresses = ['tgimajid55@gmail.com']
 
-    const response = await fetch(`${import.meta.env.VITE_URL}/sendEmail`, {
+    const response = await fetch(`http://localhost:5000/sendEmail`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

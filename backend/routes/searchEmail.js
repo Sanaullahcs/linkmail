@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 
 // Email extraction helper
 function extractEmails(text) {
-    const emailRegex = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}/g;
+    const emailRegex = process.env.EMAIL_REGEX;
     const emails = text.match(emailRegex) || [];
     return emails.map(email => {
       const atComIndex = email.indexOf('.com') + 4;
@@ -60,7 +60,7 @@ function extractEmails(text) {
           const anchor = $(element).closest('div').find(`${process.env.SECOND_DIV}`);
           const profileLink = anchor.attr('href');
           const name = anchor.text();
-          const nameMatch = name.match(/([A-Za-z]+\s[A-Za-z]+)/);
+          const nameMatch = name.match(process.env.NAME_REGEX);
   
           if (profileLink && name) {
             profiles.push({

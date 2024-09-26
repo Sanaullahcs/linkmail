@@ -55,7 +55,7 @@ export default function MainPage() {
   // Function to fetch states based on the country code when state dropdown is clicked
   const handleStateClick = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_URL}/getStates`, {
+      const response = await fetch(`http://localhost:5000/getStates`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
