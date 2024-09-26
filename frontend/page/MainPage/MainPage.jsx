@@ -16,10 +16,15 @@ export default function MainPage() {
   const [showFilter, setShowFilter] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-    // Define the function inside your component
-    const openComposeEmail = () => {
-      window.location.href = "mailto:someone@example.com?subject=Your%20Subject&body=Your%20message%20here";
-    };
+  const openComposeEmail = () => {
+    const recipient = "someone@example.com"; // Replace with your recipient
+    const subject = encodeURIComponent("Your Subject"); // Set the email subject
+    const body = encodeURIComponent("Your message here"); // Set the email body
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
+    window.open(gmailUrl, '_blank'); // Open Gmail compose window in a new tab
+};
+
+  
   // Handle form submission to search profiles
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -274,6 +279,7 @@ export default function MainPage() {
               className="action-button send-email-btn"
               disabled={!hasEmails}
               onClick={openComposeEmail}
+              
             >
               Send Email
             </button>
