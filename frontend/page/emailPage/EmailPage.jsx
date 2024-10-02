@@ -16,9 +16,9 @@ function EmailPage({ profiles }) {
 
     const emailAddresses = profiles.map(profile => profile.email);
 
-    // const emailAddresses = ['tgimajid55@gmail.com']
+    // const emailAddresses = ['tgimajid55@gmail.com.']
 
-    const response = await fetch(`http://localhost:5000/sendEmail`, {
+    const response = await fetch(`https://linkedmailbackend.tabsgi.com:5000/sendEmail`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

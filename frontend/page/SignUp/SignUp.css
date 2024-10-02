@@ -1,0 +1,132 @@
+.body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container-sign {
+    background: linear-gradient(90deg, #0BC9FF 0%, #8E65FF 100%);
+    /* border-radius: 20px; */
+    padding: 40px;
+    width: 674px;
+    height: 550px;
+    top: 143px;
+    left: 383px;
+    gap: 0px;
+    border-radius: 70px;
+    opacity: 0px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .container-sign img {
+    width: 210px;
+    height: 60px;
+    margin-bottom: 40px;
+  }
+  
+  .container-sign h1 {
+    color: white;
+    margin-bottom: 30px;
+  }
+  
+  .container-sign label {
+    display: block;
+    text-align: left;
+    color: white;
+    margin-bottom: 5px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16.41px;
+  }
+  
+  .container-sign input[type="email"],
+  .container-sign input[type="text"],
+  .container-sign input[type="password"] {
+    font-family: Roboto;
+    font-weight: 300;
+    line-height: 16.41px;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0 20px 0;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .container-sign input[type="email"]::placeholder,
+  .container-sign input[type="text"]::placeholder,
+  .container-sign input[type="password"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .container-sign .password-container {
+    position: relative;
+  }
+  
+  .container-sign .password-container .eye-icon {
+    position: absolute;
+    right: 15px;
+    top: 45%;
+    width: 20px;
+    height: 14px;
+    transform: translateY(-50%);
+    /* color: rgba(255, 255, 255, 0.7); */
+    cursor: pointer;
+  }
+  
+  .container-sign button {
+    width: 100%;
+    padding: 15px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #8E66FF;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.75px;
+    cursor: pointer;
+  }
+  
+  .container-sign .signin-link {
+    color: white;
+    margin-top: 20px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16.41px;
+    text-align: center;
+  }
+  
+  .container-sign .signin-link a {
+    padding-top: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .container-sign .signin-link a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer {
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    width: 100%;
+    color: #888;
+    font-size: 12px;
+  }
+  

@@ -1,53 +1,282 @@
-.email-page {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .email-form {
-    display: inline-block;
-    text-align: left;
-    margin-top: 20px;
-  }
-  
-  .email-form label {
-    display: block;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .email-form input,
-  .email-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    color: #333;
-    background-color: aliceblue;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .email-form button {
-    padding: 10px 20px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .email-form button:hover {
-    background-color: #45a049;
-  }
-  
-  .back-button {
-    background-color: #555;
-  }
-  
-  .back-button:hover {
-    background-color: #333;
-  }
-  
+/* Main Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  width: 683px;
+  max-height: fit-content;
+  /* height: 647px; */
+  background: #ffffff;
+  box-shadow: 0px 4px 64px rgba(0, 0, 0, 0.1a);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  width: 100%;
+  height: 60px;
+  background: #F3F6FC;
+  border-radius: 10px 10px 0px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.modal-header h2 {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.41px;
+  text-align: left;
+  color: #232231;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-section {
+  display: flex;
+  align-items: center; /* Align label and input horizontally */
+  gap: 10px; /* Space between label and input */
+  margin-bottom: 15px; /* Spacing between sections */
+}
+
+.modal-section label {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  color: #999999;
+  /* flex-basis: 80px;  */
+  text-align: right; /* Align text to the right */
+}
+
+.modal-section input {
+  width: calc(100% - 100px); /* Adjust input width based on label */
+  padding: 3px;
+  border: none;
+  outline: none;
+  /* border-bottom: 1px solid #EAEDF4; */
+  /* transition: border-color 0.3s; */
+}
+
+.divider-email {
+  border-bottom: 1px solid #EAEDF4;
+  margin-top: -12px;
+}
+
+/* Custom styling for the email body textarea */
+.modal-section textarea {
+  width: 100%;
+  height: 350px;
+  border: 1px solid #EAEDF4;
+  outline: none;
+  border-radius: 5px;
+  padding: 10px;
+  resize: none;
+}
+
+/* .modal-section textarea:focus {
+  border-color: #232231;
+} */
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 20px;
+  padding-top: 0px;
+}
+
+.file-upload {
+  display: flex;
+  align-items: center;
+}
+
+.upload-btn {
+  /* padding: 10px 15px;
+  background: #f0f0f0;
+  border-radius: 5px; */
+  cursor: pointer;
+}
+
+#file-upload {
+  display: none;
+}
+
+.send-btn {
+  width: 50px;
+  height: 50px;
+  /* top: 739px;
+  left: 1191px; */
+  gap: 0px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #0BC9FF 0%, #8E65FF 100%);
+  opacity: 0px;
+  cursor: pointer;
+}
+
+.email-input-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: text;
+}
+
+/* .email-tag {
+  background: #e2e3e4;
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.remove-tag {
+  margin-left: 10px;
+  color: #555;
+  cursor: pointer;
+} */
+#recipient {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  /* border: 1px solid #ddd; */
+  border-radius: 5px;
+  /* padding: 10px; */
+  /* min-height: 40px; */
+  overflow: hidden;
+}
+
+.scrollable-emails {
+  max-height: 100px; /* Adjust as needed */
+  width: 100%;
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  padding: 5px;
+  display: none; /* Hidden by default */
+}
+
+.scrollable-emails::-webkit-scrollbar{
+  width: 8px;
+  height: 12px;
+}
+/* Scrollbar Thumb (Handle) */
+.scrollable-emails::-webkit-scrollbar-thumb {
+  background: #999; /* Set the thumb color */
+  border-radius: 6px; /* Add rounded corners */
+}
+
+/* Scrollbar Thumb Hover */
+.scrollable-emails::-webkit-scrollbar-thumb:hover {
+  background: #999; /* Change color on hover */
+}
+
+/* Scrollbar Track */
+.scrollable-emails::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Set the track color */
+  border-radius: 6px; /* Round the corners */
+}
+
+/* Scrollbar Corner (for custom rounded scrollbar) */
+.scrollable-emails::-webkit-scrollbar-corner {
+  background: #ddd; /* Set corner color */
+}
+.scrollable-emails.show-scroll {
+  display: block; /* Show when the "View All Emails" is clicked */
+}
+.email-tag {
+  background: #e1f5fe;
+  color: #0277bd;
+  padding: 6px 12px;
+  border-radius: 16px;
+  margin-right: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.email-tag span {
+  margin-right: 8px;
+}
+
+.email-tag button {
+  border: none;
+  background: none;
+  color: #0277bd;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#view-more-button {
+  margin-left: 10px;
+  background: #ffffff;
+  border: 1px solid #0277bd;
+  color: #0277bd;
+  border-radius: 16px;
+  padding: 6px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  outline: none;
+}
+
+#view-more-button:hover {
+  background: #0277bd;
+  color: #ffffff;
+}
+
+.hidden-emails {
+  display: none;
+}
+
+.show-all {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  overflow-y: scroll;
+}
+
+
+.email-input {
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 14px;
+  width: 150px;
+  flex-grow: 1;
+}
+
+.email-input-wrapper .email-input:focus {
+  outline: none;
+}

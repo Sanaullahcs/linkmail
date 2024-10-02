@@ -5,6 +5,7 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { useNavigate } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
+import "../emailPage/EmailPage.css"
 
 export default function MainPage() {
   const [role, setRole] = useState("");
@@ -15,14 +16,77 @@ export default function MainPage() {
   const [profiles, setProfiles] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page number
+  const [profilePerPage] = useState(8);
+  const [showModal, setShowModal] = useState(false); // State for toggling modal visibility
+  const [recipient, setRecipient] = useState(""); // To field
+  const [recipientsList, setRecipientsList] = useState([]);
+  const [subject, setSubject] = useState(""); // Subject field
+  const [body, setBody] = useState(""); // Body field
+  const [showAll, setShowAll] = useState(false); 
+  const [recipientEmails, setRecipientEmails] = useState([]);
+
   const navigate = useNavigate();
-  const openComposeEmail = () => {
-    const recipient = "someone@example.com"; // Replace with your recipient
-    const subject = encodeURIComponent("Your Subject"); // Set the email subject
-    const body = encodeURIComponent("Your message here"); // Set the email body
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
-    window.open(gmailUrl, '_blank'); // Open Gmail compose window in a new tab
+const openComposeEmail = () => {
+  // If there are profiles with emails, extract them and show as tags
+  if (profiles.length > 0) {
+    const emails = profiles
+      .map((profile) => profile.email)
+      .filter((email) => email); // Remove any empty email entries
+      setRecipientEmails(emails);
+    setRecipient(emails.join(", "));
+  } else {
+    setRecipientEmails([]);
+    setRecipient("");
+  }
+  setShowModal(true); // Show the modal when Send Email is clicked
 };
+
+const handleCloseModal = () => {
+  setShowModal(false); // Hide the modal
+  setRecipient(""); 
+  setRecipientsList([]); 
+  setRecipientEmails([]);
+};
+
+
+// Toggle between showing and hiding all emails
+const handleToggleEmails = () => {
+setShowAll(!showAll);
+};
+
+// Handle removing individual email tags
+const handleRemoveEmail = (email) => {
+const updatedEmails = recipientEmails.filter((recipient) => recipient !== email);
+setRecipientEmails(updatedEmails);
+};
+const handleSendEmail = async () => {
+  if (!subject || !body) {
+    alert('Subject and body are required.');
+    return;
+  }
+
+  const emailAddresses = recipientsList.length > 0 ? recipientsList : [recipient];
+
+  // const emailAddresses = [recipient]
+
+  const response = await fetch(`https://linkedmailbackend.tabsgi.com:5000/sendEmail`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ subject, body, emailAddresses }),
+  });
+
+  if (response.ok) {
+    alert('Emails sent successfully!');
+    handleCloseModal();
+  } else {
+    alert('Error sending emails.');
+  }
+
+};
+
 
   
   // Handle form submission to search profiles
@@ -31,7 +95,7 @@ export default function MainPage() {
     setLoading(true); // Start loading
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_URL}/searchEmails`, {
+      const response = await fetch(`https://linkedmailbackend.tabsgi.com:5000/searchEmails`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +119,7 @@ export default function MainPage() {
   // Function to fetch states based on the country code when state dropdown is clicked
   const handleStateClick = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/getStates`, {
+      const response = await fetch(`https://linkedmailbackend.tabsgi.com:5000/getStates`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -113,24 +177,59 @@ export default function MainPage() {
     saveAs(blob, "profiles.xlsx");
   };
 
-  // Navigate to the Email Sending Page
-  const navigateToEmailPage = () => {
-    navigate("/email");
+  
+  // Handle file upload and extract emails
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        const binaryStr = evt.target.result;
+        const workbook = XLSX.read(binaryStr, { type: "binary" });
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+        
+        // Find the email column
+        const emailColumnIndex = data[0].findIndex((col) => col.toLowerCase().includes("email"));
+        if (emailColumnIndex !== -1) {
+          const emails = data.slice(1).map((row) => row[emailColumnIndex]).filter((email) => email);
+  
+          // Set the emails in the recipientEmails state
+          setRecipientEmails(emails);
+          setRecipient(emails.join(", "));
+        } else {
+          alert("No email column found in the uploaded file.");
+        }
+      };
+      reader.readAsBinaryString(file);
+    }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    navigate('/');
+    // alert('Logged out successfully.');
+  };
+
+  
   // Navigate to the Email History Page
   const navigateToEmailHistory = () => {
     navigate("/emailHistory");
   };
+   // Function to slice profiles based on pagination
+   const indexOfLastProfile = currentPage * profilePerPage;
+   const indexOfFirstProfile = indexOfLastProfile - profilePerPage;
+   const currentProfiles = profiles.slice(indexOfFirstProfile, indexOfLastProfile);
 
-  // Check if any profiles have emails to enable/disable Email Page button
-  const hasEmails = profiles.some((profile) => profile.email);
+   // Change page
+   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
       <div className="container">
         <div className="sidebar">
-          <img className="logo" src="./tgi.png" />
+          <img className="logo" src="./Layer_1.png" />
           <div className="divider"></div>
           <form className="form" onSubmit={handleSubmit}>
             <label htmlFor="role">Enter a Role*</label>
@@ -188,7 +287,7 @@ export default function MainPage() {
                 onChange={() => setShowFilter(!showFilter)}
               />
               <label htmlFor="email-filter" className="checkbox-label">
-                Email Filter
+                Email Filter*
               </label>
             </div>
             <button type="Submit" className="search-button">
@@ -198,7 +297,7 @@ export default function MainPage() {
         </div>
         <div className="main-content">
          <div className="table-data-header">
-         <h2>linkedMail</h2>
+         <h2>Extracted Profiles</h2>
           {profiles.length > 0 && !loading && (
             <button onClick={downloadExcel} className="action-button download-excel-btn">
               Download as Excel
@@ -223,8 +322,8 @@ export default function MainPage() {
                 </tr>
               </thead>
               <tbody>
-                {profiles.length > 0 ? (
-                  profiles.map((profile, index) => (
+                {currentProfiles.length > 0 ? (
+                  currentProfiles.map((profile, index) => (
                     <tr key={index}>
                       <td>{profile.name}</td>
                       <td>{profile.email}</td>
@@ -255,19 +354,24 @@ export default function MainPage() {
             {profiles.length > 0 && !loading && (
               <>
               <div className="divider"></div>
-              <div className="pagination">
-            {/* <a href="#">&laquo;</a> */}
-            <a href="#">1</a>
-            <a href="#">2</a>
-            
-            {/* <a href="#">&raquo;</a> */}
-          </div>
+             {/* Pagination */}
+             <div className="pagination">
+              {Array.from({ length: Math.ceil(profiles.length / profilePerPage) }, (_, index) => (
+                <button
+                  key={index}
+                  className={`pagination-button ${index + 1 === currentPage ? 'active' : ''}`}
+                  onClick={() => paginate(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
               </>
             
-            )}
+             )} 
             </div>
           )}
-          {profiles.length > 0 && !loading && (
+          {/* {profiles.length > 0 && !loading && ( */}
           <div className="buttons-container">
             <button
               onClick={handleRefresh}
@@ -277,7 +381,7 @@ export default function MainPage() {
             </button>
             <button
               className="action-button send-email-btn"
-              disabled={!hasEmails}
+              // disabled={!hasEmails}
               onClick={openComposeEmail}
               
             >
@@ -290,11 +394,104 @@ export default function MainPage() {
               Email History
             </button>
           </div>
-          )}
+          {/* <div className="divider"></div> */}
+          <div className="logout-button" onClick={handleLogout}>
+          Logout: <img src="./logout.png" width={38} height={38} alt="logout"/>
+          </div>
+          {/* Email Modal */}
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal">
+              {/* Header Section */}
+              <div className="modal-header">
+                <h2>Compose Email</h2>
+                <button className="close-btn" onClick={handleCloseModal}>
+                  &times;
+                </button>
+              </div>
+
+              {/* To Input */}
+              <div className="modal-body">
+              <div className="modal-section">
+              <label htmlFor="recipient">To</label>
+              <div id="recipient">
+                {/* Display the first three emails inline */}
+                {recipientEmails.slice(0, 3).map((email, index) => (
+                  <div key={index} className="email-tag">
+                    <span>{email}</span>
+                    <button onClick={() => handleRemoveEmail(email)}>&times;</button>
+                  </div>
+                ))}
+
+                {/* View More Button */}
+                {recipientEmails.length > 3 && (
+                  <button id="view-more-button" onClick={handleToggleEmails}>
+                    {showAll ? "Hide Emails" : "View All Emails"}
+                  </button>
+                )}
+
+                {/* Hidden Emails */}
+                <div className={`scrollable-emails ${showAll ? "show-scroll" : ""}`}>
+                  {recipientEmails.slice(3).map((email, index) => (
+                    <div key={index} className="email-tag">
+                      <span>{email}</span>
+                      <button onClick={() => handleRemoveEmail(email)}>&times;</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+                <div className="divider-email"></div>
+                {/* Subject Input */}
+                <div className="modal-section">
+                  <label htmlFor="subject">Subject</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    // placeholder="Email Subject"
+                  />
+                </div>
+                <div className="divider-email"></div>
+                {/* Body Input */}
+                <div className="modal-section">
+                  {/* <label htmlFor="body">Body:</label> */}
+                  <textarea
+                    id="body"
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)}
+                    // placeholder="Write your message here..."
+                  ></textarea>
+                </div>
+              </div>
+
+              {/* File Upload and Send Button */}
+              <div className="modal-footer">
+                <div className="file-upload">
+                  <label htmlFor="file-upload" className="upload-btn">
+                    <img src="./Icon.png"/>
+                  </label>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    onChange={handleFileUpload}
+                    // onChange={(e) => setAttachment(e.target.files[0])}
+                  />
+                </div>
+                <button className="send-btn" onClick={handleSendEmail}>
+                <img src="./send_icon.png"/>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+          {/* )} */}
         </div>
 
       </div>
-      <footer>Copyright © 2024 TGI. All Rights Reserved.</footer>
+      <footer>
+        Powered by: <img src="./tgi.png" width={34} height={33}/></footer>
 
     </>
   );

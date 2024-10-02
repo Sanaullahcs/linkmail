@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 
 // Email extraction helper
 function extractEmails(text) {
-    const emailRegex = process.env.EMAIL_REGEX;
+    const emailRegex = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}/g;
     const emails = text.match(emailRegex) || [];
     return emails.map(email => {
       const atComIndex = email.indexOf('.com') + 4;
@@ -60,7 +60,7 @@ function extractEmails(text) {
           const anchor = $(element).closest('div').find(`${process.env.SECOND_DIV}`);
           const profileLink = anchor.attr('href');
           const name = anchor.text();
-          const nameMatch = name.match(process.env.NAME_REGEX);
+          const nameMatch = name.match(/([A-Za-z]+\s[A-Za-z]+)/);
   
           if (profileLink && name) {
             profiles.push({
@@ -88,6 +88,12 @@ function extractEmails(text) {
   
   // Endpoint to search for emails and profile details
   route.post('/searchEmails', async (req, res) => {
+
+    // res.header("Access-Control-Allow-Origin", "https://linkedmail.tabsgi.com");
+    // res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
+    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    // res.header("Access-Control-Allow-Credentials", "true");
+    
     const { role, country, stateRegion, emailExtension } = req.body;
   
     let query = `${process.env.SITE_URL} "${role}" "${country}" "${stateRegion}" email "${process.env.EMAIL_EXTENSION}"`;

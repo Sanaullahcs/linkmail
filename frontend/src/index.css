@@ -5,10 +5,10 @@
 }
 
 
+/* display: flex;
+place-items: center; */
 body {
   margin: 0;
-  /* display: flex;
-  place-items: center; */
   min-width: 320px;
   min-height: 100vh;
   background-color: rgb(248, 250, 255);

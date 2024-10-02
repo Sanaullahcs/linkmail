@@ -88,8 +88,7 @@ body {
   line-height: 16.41px;
   text-align: left;
   color: #999999;
-
-
+  outline: none;
 
 }
 
@@ -117,7 +116,7 @@ body {
   display: block;
   width: 100%;
   box-shadow: 0px 2px 6px 0px #DCE1EC;
-  background-color: #F8760B;
+  background: linear-gradient(90deg, #0BC9FF 0%, #8E65FF 100%);
   color: white;
   border: none;
   border-radius: 10px;
@@ -127,9 +126,6 @@ body {
   font-family: Roboto;
   font-size: 14px;
   font-weight: 400;
- 
-
-
 }
 
 .search-button:active,
@@ -138,12 +134,42 @@ body {
   outline: none !important;
 
 }
+.logout-button {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.09px;
+  text-align: right;
+  color: #333333;
+  display: flex;
+  /* width: 1380px; */
+  height: 38px;
+  padding-top: 308px;
+  justify-content: flex-end;
+}
+.logout-button img {
+  margin-left: 10px;
+  margin-top: -10px;
+  cursor: pointer;
+}
 
 footer {
   color: #a1a1a1;
-  font-size: 12px;
- 
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
 }
+footer p {
+  font-size: 16px;
+  font-family: Roboto;
+  font-weight: 400;
+}
+footer img {
+  margin-left: 10px;
+  margin-top: -10px;
+  cursor: pointer;
+}
+
 
 @media(min-width: 768px) {
   footer {
@@ -152,18 +178,21 @@ footer {
     width: calc(25% - 40px);
     margin-left: 40px;
     margin-top: -30px;
-    margin-bottom: 12px;
+    /* margin-bottom: 12px; */
   }
+
 }
 
 .main-content {
   flex-grow: 1;
   padding: 30px 20px;
+  margin-top: 20px;
 }
 
 @media(min-width: 768px) {
   .main-content {
     padding: 30px;
+    margin-top: 20px;
   }
 }
 
@@ -189,7 +218,7 @@ table {
   margin-top: 30px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0px 20px 40px 0px #D0D6E3;
+  /* box-shadow: 0px 20px 40px 0px #D0D6E3; */
   padding: 20px;
   overflow-x: scroll;
 }
@@ -208,7 +237,7 @@ table td {
   text-align: left;
   border-bottom: 1px solid #EAEDF4;
   font-family: Roboto;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 16.41px;
   text-align: left;
@@ -256,7 +285,7 @@ table td {
   appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   background-color: white;
   border-radius: 4px;
   position: relative;
@@ -265,7 +294,8 @@ table td {
 
 /* When the checkbox is checked, change background to black and show the white checkmark */
 .checkbox-container input[type="checkbox"]:checked {
-  background-color: black;
+  background: linear-gradient(90deg, #0BC9FF 0%, #8E65FF 100%);
+  box-shadow: 0px 2px 10px 0px #DCE1EC4D;
 }
 
 .checkbox-container input[type="checkbox"]:checked::before {
@@ -280,6 +310,7 @@ table td {
 .checkbox-label {
   margin-top: 10px !important;
   margin-left: 5px;
+  color:#999999 !important;
 }
 
 .buttons-container {
@@ -295,7 +326,7 @@ table td {
   text-align: left;
   color: #FFFFFF;
   height: 40px;
-  box-shadow: 0px 2px 6px 0px #DCE1EC;
+  /* box-shadow: 0px 2px 6px 0px #DCE1EC; */
   border-radius: 10px;
   margin-top: 20px;
   border: 0px;
@@ -330,7 +361,7 @@ cursor: pointer;
 
 .send-email-btn {
   background: #00D0FF;
-  width: 110px;
+  width: 104px;
   display: flex;
   align-items: center;
   text-align: center;
@@ -341,14 +372,54 @@ cursor: pointer;
   display: flex;
   margin-left: auto;
   margin-top: 12px;
+}
+
+.pagination-button {
+  width: 28px;
+  height: 28px;
+  text-decoration: none;
+  border: 1px solid #EAEDF4;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 6px;
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #999999;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-button:hover {
+  background: #F0F0F0;
+  color: #333333;
+}
+
+.pagination-button.active {
+  background: #E8E8E8;
+  color: #333333;
+  border-color: #D0D0D0;
+}
+
+.pagination-button:first-of-type {
+  margin-left: auto;
+}
+
+/* .pagination {
+  display: flex;
+  margin-left: auto;
+  margin-top: 12px;
 
 }
 
-.pagination a {
-  color: black;
+.pagination button {
   float: left;
- width: 28px;
- height: 28px;
+  width: 28px;
+  height: 28px;
   text-decoration: none;
   border: 1px solid #EAEDF4;
   border-radius: 4px;
@@ -357,24 +428,37 @@ cursor: pointer;
   text-align: center;
   justify-content: center;
   margin: 6px;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: #999999;
+  
 }
 .pagination a:active,
 .pagination a:first-child {
- background-color: #333333;
- color: white;
+  background: #E8E8E8;
+  color: #333333;
  
 }
 .pagination a:first-child {
  
   margin-left: auto;
   
- }
+ } */
  .table-data-header{
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
  }
  .download-excel-btn{
   margin-left: auto;
-  background-color: #F8760B;
+  box-shadow: 0px 2px 6px 0px #DCE1EC;
+  background: linear-gradient(90deg, #0BC9FF 0%, #8E65FF 100%);
+  width: 150px;
+  text-align: center;
   margin-top: 0px;
  }
  .view-profile{
@@ -382,6 +466,7 @@ cursor: pointer;
   border-radius: 4px;
   color: #999999;
   padding: 8px;
+  text-decoration: none;
  }
  @media(max-width: 768px) {
  footer {

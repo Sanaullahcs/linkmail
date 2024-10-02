@@ -6,36 +6,47 @@ line-height: 23.44px;
 text-align: left;
 color: #000000;
 }
+
+.action-button-text{
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
 .back-button{
   margin-top: 2px;
-  box-shadow: 0px 2px 6px 0px #DCE1EC;
-  background: #F8760B;
-width: 40px;
-height: 40px;
-margin-right: 12px;
-display: flex;
-align-items: center;
-justify-content: center;
+  border: 2px solid #FFFFFF;
+  background: linear-gradient(90deg, #0BC9FF 0%, #8E65FF 100%);
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-}
+  }
 .email-history{
   padding: 30px;
 }
 .d-excel-btn{
+  margin-top: 10px;
   margin-left: auto;
   width: 140px;
+  box-shadow: 0px 2px 6px 0px #DCE1EC;
+  background: linear-gradient(90deg, #0BC9FF 0%, #8E65FF 100%);
 }
 .dropdown {
-  position: relative;
+  /* position: relative; */
+  margin-left: -116px;
 }
 
 .dropdown-content {
   display: block; /* Show the dropdown when open */
   position: absolute;
-  background-color: white;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  background: #FFFFFF;
+  width: 250px;
+  box-shadow: 0px 4px 54px 0px #0000001A;
   z-index: 1;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .dropdown-content ul {
@@ -47,13 +58,57 @@ justify-content: center;
 .dropdown-content li {
   padding: 8px 12px;
   cursor: pointer;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
 }
 
-.dropdown-content li:hover {
-  background-color: #f1f1f1; /* Change background on hover */
-}
+/* .dropdown-content li:hover {
+  background-color: #f1f1f1; 
+} */
 .view-email-btn{
   border: 1px solid #EAEDF4 !important;
   color: #999999 !important;
   background-color: transparent;
+}
+
+/* Tooltip container */
+.tooltip {
+  /* position: relative; */
+  cursor: pointer;
+}
+
+/* Tooltip text */
+.tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  background: #FFFFFF;
+  /* color: #ffffff; */
+  padding: 12px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 16px;
+  white-space: pre-wrap; /* Preserve formatting for longer text */
+  max-width: 300px;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  box-shadow: 0px 4px 54px 0px #0000001A;
+  pointer-events: none; /* Prevents interfering with mouse actions */
+}
+
+/* Arrow below the tooltip */
+.tooltip:hover::before {
+  content: '';
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333333 transparent transparent transparent;
+  z-index: 10;
 }

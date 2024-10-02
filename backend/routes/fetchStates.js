@@ -4,6 +4,12 @@ const { Country, State } = require('country-state-city'); // Import country-stat
 
 // API to get the states by country name
 route.post('/getStates', (req, res) => {
+
+  // res.header("Access-Control-Allow-Origin", "https://linkedmail.tabsgi.com");
+  // res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  // res.header("Access-Control-Allow-Credentials", "true");
+  
   const { country } = req.body;
 
   // Find country code by name
